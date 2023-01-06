@@ -1,4 +1,4 @@
-package com.thrive.model.dto;
+package com.thrive.model.dao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -16,10 +16,10 @@ import java.util.Date;
 @Builder
 @Data
 @Entity
-@Table(name = "base_table", uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"id"})
 })
-public class StoredBase {
+public class StoredUser {
 
     @Id
     @Column(name = "id")
@@ -31,8 +31,11 @@ public class StoredBase {
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "usn")
-    private String usn;
+    @Column(name = "ssn", unique = true)
+    private String ssn;
+
+    @Column(name = "phone_number", unique = true)
+    private String phoneNumber;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp

@@ -1,16 +1,20 @@
 package com.thrive;
 
-import com.thrive.model.dto.StoredBase;
-import com.thrive.resources.userResource;
+import com.google.inject.Stage;
+import com.thrive.model.dao.StoredUser;
+import com.thrive.resources.UserResource;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.config.ShardedHibernateFactory;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import lombok.val;
+import ru.vyarus.dropwizard.guice.GuiceBundle;
 
 public class UserServiceApplication extends Application<UserServiceConfiguration> {
 
     private DBShardingBundle<UserServiceConfiguration> dbShardingBundle;
+    private GuiceBundle guiceBundle;
 
     public static void main(final String[] args) throws Exception {
         new UserServiceApplication().run(args);
@@ -23,20 +27,25 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 
     @Override
     public void initialize(final Bootstrap<UserServiceConfiguration> bootstrap) {
-        this.dbShardingBundle = new DBShardingBundle<UserServiceConfiguration>(StoredBase.class) {
+        this.dbShardingBundle = new DBShardingBundle<UserServiceConfiguration>(StoredUser.class) {
             @Override
             protected ShardedHibernateFactory getConfig(UserServiceConfiguration baseProjectConfiguration) {
                 return baseProjectConfiguration.getShards();
             }
         };
         bootstrap.addBundle(dbShardingBundle);
+        this.guiceBundle = GuiceBundle.<UserServiceConfiguration>builder()
+                .enableAutoConfig(getClass().getPackage().getName())
+                .modules(new UserModule(this.dbShardingBundle))
+                .build(Stage.PRODUCTION);
+        bootstrap.addBundle(guiceBundle);
     }
 
     @Override
     public void run(final UserServiceConfiguration configuration,
                     final Environment environment) {
-        userResource resource = new userResource();
-        environment.jersey().register(resource);
+        val injector = guiceBundle.getInjector();
+        environment.jersey().register(injector.getInstance(UserResource.class));
     }
 
 }

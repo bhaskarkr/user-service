@@ -13,9 +13,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Base {
+public class User {
     private String id;
     private String name;
+    private String phoneNumber;
     private String usn;
     private Date updatedAt;
     private Date createdAt;
