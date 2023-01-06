@@ -1,0 +1,14 @@
+logging:
+  level: INFO
+  loggers:
+    com.thrive: DEBUG
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+
+swagger:
+  resourcePackage: com.thrive.resources
+  title: User Service
+  description: User Service Swagger
