@@ -1,6 +1,8 @@
 package com.thrive.services.impl;
 
 import com.google.inject.Singleton;
+import com.thrive.core.ErrorCode;
+import com.thrive.core.UserException;
 import com.thrive.db.UsersDB;
 import com.thrive.model.dao.StoredUser;
 import com.thrive.model.dto.User;
@@ -24,19 +26,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String userId, boolean allowInactive) throws Exception {
         Optional<StoredUser> optionalBase = usersDB.get(userId, allowInactive);
-//        if(!optionalBase.isPresent()) {
-//            throw new BaseException(ErrorCode.BASE_ID_NOT_FOUND, "Base not Found");
-//        }
+        if(!optionalBase.isPresent()) {
+            throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
+        }
         return UserUtils.toDto(optionalBase.get());
     }
 
     @Override
     public User createUser(UserCreateRequest request) throws Exception {
         Optional<StoredUser> optionalStoredBase = usersDB.save(UserUtils.toDao(request));
-//        if(!optionalStoredBase.isPresent()){
-//            throw new BaseException(ErrorCode.BASE_NOT_SAVED, "Base not saved");
-//        }
-
+        if(!optionalStoredBase.isPresent()){
+            throw new UserException(ErrorCode.USER_NOT_SAVED, "User not saved");
+        }
         return UserUtils.toDto(optionalStoredBase.get());
     }
 }
