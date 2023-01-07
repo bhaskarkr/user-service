@@ -29,8 +29,8 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
     public void initialize(final Bootstrap<UserServiceConfiguration> bootstrap) {
         this.dbShardingBundle = new DBShardingBundle<UserServiceConfiguration>(StoredUser.class) {
             @Override
-            protected ShardedHibernateFactory getConfig(UserServiceConfiguration baseProjectConfiguration) {
-                return baseProjectConfiguration.getShards();
+            protected ShardedHibernateFactory getConfig(UserServiceConfiguration userServiceConfiguration) {
+                return userServiceConfiguration.getShards();
             }
         };
         bootstrap.addBundle(dbShardingBundle);
