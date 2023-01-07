@@ -1,6 +1,7 @@
 Description
 ---
-Used Dropwizard 2.x.x , MariaDB, Java 17, Maven
+Used Dropwizard 2.x.x , MariaDB, Java 17, Maven, MariaDB, Redis Cache
+Tested with AWS ElastiCache - Redis, AWS RDS-MariaDB
 
 # simple
 
