@@ -1,7 +1,7 @@
 package com.thrive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.thrive.client.RedisConfiguration;
+import com.thrive.model.config.CacheConfig;
 import io.appform.dropwizard.sharding.config.ShardedHibernateFactory;
 import io.dropwizard.Configuration;
 import lombok.Data;
@@ -18,4 +18,6 @@ import org.redisson.config.Config;
 public class UserServiceConfiguration extends Configuration {
     private ShardedHibernateFactory shards;
     private Config redis;
+
+    private CacheConfig caches;
 }
