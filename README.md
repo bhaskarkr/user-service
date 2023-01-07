@@ -1,3 +1,7 @@
+Description
+---
+Used Dropwizard 2.x.x , MariaDB, Java 17, Maven
+
 # simple
 
 How to start the simple application
