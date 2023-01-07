@@ -50,6 +50,14 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
 
+        <!-- REDIS -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.19.0</version>
+        </dependency>
+        <!-- REDIS -->
+
 <!--        &lt;!&ndash; SWAGGER &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>com.smoketurner</groupId>-->
