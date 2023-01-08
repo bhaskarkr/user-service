@@ -2,6 +2,7 @@ package com.thrive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thrive.model.config.CacheConfig;
+import com.thrive.model.config.S3Config;
 import io.appform.dropwizard.sharding.config.ShardedHibernateFactory;
 import io.dropwizard.Configuration;
 import lombok.Data;
@@ -20,4 +21,6 @@ public class UserServiceConfiguration extends Configuration {
     private Config redis;
 
     private CacheConfig caches;
+
+    private S3Config s3Config;
 }
