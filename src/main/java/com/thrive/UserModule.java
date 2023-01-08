@@ -5,7 +5,9 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.thrive.client.cache.user.Impl.UserCacheImpl;
 import com.thrive.client.cache.user.UserCache;
+import com.thrive.db.UserFileS3;
 import com.thrive.db.UsersDB;
+import com.thrive.db.impl.UserFileS3Impl;
 import com.thrive.db.impl.UsersDBImpl;
 import com.thrive.model.config.CacheConfig;
 import com.thrive.model.dao.StoredUser;
@@ -29,6 +31,7 @@ public class UserModule extends AbstractModule {
         bind(UserService.class).to(UserServiceImpl.class);
         bind(UsersDB.class).to(UsersDBImpl.class);
         bind(UserCache.class).to(UserCacheImpl.class);
+        bind(UserFileS3.class).to(UserFileS3Impl.class);
     }
 
     @Provides
