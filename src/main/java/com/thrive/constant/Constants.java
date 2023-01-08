@@ -9,4 +9,6 @@ public abstract class Constants {
             .ttl(100)
             .ttlType(TimeUnit.SECONDS)
             .build();
+
+    public static final String BUCKET_NAME = "user-service-s3";
 }

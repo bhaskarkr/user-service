@@ -9,6 +9,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import lombok.val;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import ru.vyarus.dropwizard.guice.GuiceBundle;
 
 public class UserServiceApplication extends Application<UserServiceConfiguration> {
@@ -45,7 +46,7 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
     public void run(final UserServiceConfiguration configuration,
                     final Environment environment) {
         val injector = guiceBundle.getInjector();
-        environment.jersey().register(injector.getInstance(UserResource.class));
+        environment.jersey().register(MultiPartFeature.class);
     }
 
 }
