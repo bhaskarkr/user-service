@@ -2,7 +2,6 @@ package com.thrive;
 
 import com.google.inject.Stage;
 import com.thrive.model.dao.StoredUser;
-import com.thrive.resources.UserResource;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.config.ShardedHibernateFactory;
 import io.dropwizard.Application;
