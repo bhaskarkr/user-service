@@ -2,7 +2,7 @@ package com.thrive.client;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.thrive.model.config.S3Config;
+import com.thrive.model.config.AWSCredential;
 import io.dropwizard.lifecycle.Managed;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -14,17 +14,17 @@ import java.util.Objects;
 @Singleton
 public class AwsS3Client implements Managed {
     private S3Client s3Client;
-    private final S3Config s3Config;
+    private final AWSCredential AWSCredential;
 
     @Inject
-    public AwsS3Client(S3Config s3Config) {
-        this.s3Config = s3Config;
+    public AwsS3Client(AWSCredential AWSCredential) {
+        this.AWSCredential = AWSCredential;
     }
 
     private S3Client getS3TransferManager() {
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(
-                s3Config.getAccessKeyId(),
-                s3Config.getSecretAccessKey());
+                AWSCredential.getAccessKeyId(),
+                AWSCredential.getSecretAccessKey());
         return S3Client.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .region(Region.US_EAST_1)

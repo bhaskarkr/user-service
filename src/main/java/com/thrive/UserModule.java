@@ -1,5 +1,6 @@
 package com.thrive;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -10,12 +11,13 @@ import com.thrive.db.UsersDB;
 import com.thrive.db.impl.UserFileS3Impl;
 import com.thrive.db.impl.UsersDBImpl;
 import com.thrive.model.config.CacheConfig;
-import com.thrive.model.config.S3Config;
+import com.thrive.model.config.AWSCredential;
 import com.thrive.model.dao.StoredUser;
 import com.thrive.services.UserService;
 import com.thrive.services.impl.UserServiceImpl;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.dao.RelationalDao;
+import io.dropwizard.setup.Environment;
 import org.redisson.config.Config;
 
 
@@ -43,19 +45,25 @@ public class UserModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public Config getRedisConfiguration(UserServiceConfiguration userServiceConfiguration) {
+    public Config provideRedisConfiguration(UserServiceConfiguration userServiceConfiguration) {
         return userServiceConfiguration.getRedis();
     }
 
     @Provides
     @Singleton
-    public CacheConfig getCacheConfiguration(UserServiceConfiguration userServiceConfiguration) {
+    public CacheConfig provideCacheConfiguration(UserServiceConfiguration userServiceConfiguration) {
         return userServiceConfiguration.getCaches();
     }
 
     @Provides
     @Singleton
-    public S3Config getS3Configuration(UserServiceConfiguration userServiceConfiguration) {
-        return userServiceConfiguration.getS3Config();
+    public AWSCredential provideAWSCredential(UserServiceConfiguration userServiceConfiguration) {
+        return userServiceConfiguration.getAWSCredential();
+    }
+
+    @Provides
+    @Singleton
+    public ObjectMapper provideObjectMapper(Environment environment) {
+        return environment.getObjectMapper();
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class S3Config {
+public class AWSCredential {
     private String accessKeyId;
     private String secretAccessKey;
 }

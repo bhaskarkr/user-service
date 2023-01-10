@@ -1,4 +1,4 @@
-package com.thrive.client;
+package com.thrive.client.cache;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

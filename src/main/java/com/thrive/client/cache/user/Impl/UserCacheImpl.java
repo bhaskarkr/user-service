@@ -2,7 +2,7 @@ package com.thrive.client.cache.user.Impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.thrive.client.RedisClient;
+import com.thrive.client.cache.RedisClient;
 import com.thrive.client.cache.CacheName;
 import com.thrive.client.cache.user.UserCache;
 import com.thrive.constant.Constants;
