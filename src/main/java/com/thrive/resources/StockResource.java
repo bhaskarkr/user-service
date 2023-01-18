@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.thrive.model.dto.Stock;
 import com.thrive.model.request.CreateStockRequest;
+import com.thrive.model.request.UpdateStockPriceRequest;
 import com.thrive.services.StockService;
 
 import javax.ws.rs.*;
@@ -30,5 +31,11 @@ public class StockResource {
     @Path("/")
     public Stock createStock(CreateStockRequest request) throws Exception{
         return stockService.create(request);
+    }
+
+    @PATCH
+    @Path("/")
+    public void createStock(UpdateStockPriceRequest updateStockPriceRequest) throws Exception{
+        stockService.updatePrice(updateStockPriceRequest);
     }
 }

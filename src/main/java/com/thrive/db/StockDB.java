@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface StockDB {
     List<StoredStock> getAllStocks();
+    Optional<StoredStock> getStock(String stockId) throws Exception;
     Optional<StoredStock> save(StoredStock storedStock) throws Exception;
 }

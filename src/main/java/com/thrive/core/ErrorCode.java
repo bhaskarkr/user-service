@@ -10,5 +10,6 @@ public enum ErrorCode {
 
 
     // Stock related error
-     STOCK_NOT_SAVED;
+     STOCK_NOT_SAVED,
+    STOCK_DOES_NOT_EXIST;
 }

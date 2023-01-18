@@ -7,6 +7,7 @@ import com.thrive.db.StockDB;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dto.Stock;
 import com.thrive.model.request.CreateStockRequest;
+import com.thrive.model.request.UpdateStockPriceRequest;
 import com.thrive.services.StockService;
 import com.thrive.util.StockUtils;
 
@@ -34,5 +35,18 @@ public class StockServiceImpl implements StockService {
             throw new UserException(ErrorCode.STOCK_NOT_SAVED, "Stock not saved");
         }
         return StockUtils.toDto(optionalStoredStock.get());
+    }
+
+    @Override
+    public void updatePrice(UpdateStockPriceRequest updateStockPrice) throws Exception {
+        Optional<StoredStock> existingStock = stockDB.getStock(updateStockPrice.getStockId());
+        if(!existingStock.isPresent()){
+            throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock doesn't exist");
+        }
+        existingStock.get().setPreviousPrice(existingStock.get().getCurrentPrice());
+        existingStock.get().setDayHigh(Math.max(existingStock.get().getCurrentPrice(), existingStock.get().getDayHigh()));
+        existingStock.get().setDayLow(Math.min(existingStock.get().getCurrentPrice(), existingStock.get().getDayLow()));
+
+        Optional<StoredStock> optionalStoredStock = stockDB.save(existingStock.get());
     }
 }
