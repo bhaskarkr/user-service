@@ -31,6 +31,16 @@ public class UsersDBImpl implements UsersDB {
     }
 
     @Override
+    public Optional<StoredUser> getUserByEmail(String email, boolean allowInactive) throws Exception {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(StoredUser.class);
+        detachedCriteria.add(Restrictions.eq("email", email));
+        if(!allowInactive){
+            detachedCriteria.add(Restrictions.eq("active", true));
+        }
+        return storedUserRelationalDao.select(email, detachedCriteria, 0, 1).stream().findFirst();
+    }
+
+    @Override
     public Optional<StoredUser> save(StoredUser storedBase) throws Exception {
         return storedUserRelationalDao.save(storedBase.getEmail(), storedBase);
     }

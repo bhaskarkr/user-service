@@ -13,7 +13,6 @@ import com.thrive.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Singleton
@@ -48,6 +47,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserCreateRequest request) throws Exception {
+        Optional<StoredUser> existingUser = usersDB.getUserByEmail(request.getEmail(), true);
+        if(!existingUser.isPresent()){
+            throw new UserException(ErrorCode.USER_ALREADY_EXIST, "User Already Exists");
+        }
         Optional<StoredUser> optionalStoredBase = usersDB.save(UserUtils.toDao(request));
         if(!optionalStoredBase.isPresent()){
             throw new UserException(ErrorCode.USER_NOT_SAVED, "User not saved");

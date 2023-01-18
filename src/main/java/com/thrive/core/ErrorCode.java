@@ -6,6 +6,7 @@ public enum ErrorCode {
 //    User Related Error
     USER_ID_NOT_FOUND,
     USER_NOT_SAVED,
+    USER_ALREADY_EXIST,
 
 
     // Stock related error
