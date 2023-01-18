@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserCreateRequest request) throws Exception {
         Optional<StoredUser> existingUser = usersDB.getUserByEmail(request.getEmail(), true);
-        if(!existingUser.isPresent()){
+        if(existingUser.isPresent()){
             throw new UserException(ErrorCode.USER_ALREADY_EXIST, "User Already Exists");
         }
         Optional<StoredUser> optionalStoredBase = usersDB.save(UserUtils.toDao(request));
