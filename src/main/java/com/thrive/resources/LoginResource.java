@@ -2,9 +2,8 @@ package com.thrive.resources;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.thrive.model.dto.User;
 import com.thrive.model.request.LoginRequest;
-import com.thrive.model.response.LoginResponse;
+import com.thrive.model.response.LoginSuccessResponse;
 import com.thrive.services.SessionService;
 
 import javax.ws.rs.*;
@@ -22,7 +21,7 @@ public class LoginResource {
 
     @POST
     @Path("/")
-    public LoginResponse getUser(LoginRequest loginRequest) throws Exception {
+    public LoginSuccessResponse getUser(LoginRequest loginRequest) throws Exception {
         return sessionService.login(loginRequest);
     }
 }

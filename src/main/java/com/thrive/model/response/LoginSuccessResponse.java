@@ -12,10 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LoginSuccessResponse extends LoginResponse {
+public class LoginSuccessResponse {
     private List<String> stocks;
     private User user;
-    public LoginSuccessResponse() {
-        super(LoginStatus.SUCCESS);
-    }
 }

@@ -6,8 +6,7 @@ import com.google.inject.Singleton;
 import com.thrive.core.UserException;
 import com.thrive.model.dto.User;
 import com.thrive.model.request.LoginRequest;
-import com.thrive.model.response.LoginFailureResponse;
-import com.thrive.model.response.LoginResponse;
+import com.thrive.model.response.LoginSuccessResponse;
 import com.thrive.services.SessionService;
 import com.thrive.services.UserService;
 import com.thrive.util.SessionUtils;
@@ -24,14 +23,8 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest) throws Exception {
-        try {
-            User user = userService.getUser(loginRequest.getEmail(), loginRequest.getPassword(), true);
-            return SessionUtils.toLoginSuccessResponse(user, ImmutableList.of());
-        } catch (UserException userException) {
-            return LoginFailureResponse.builder()
-                    .message("No User Found, Please check you credentials")
-                    .build();
-        }
+    public LoginSuccessResponse login(LoginRequest loginRequest) throws Exception {
+        User user = userService.getUser(loginRequest.getEmail(), loginRequest.getPassword(), true);
+        return SessionUtils.toLoginSuccessResponse(user, ImmutableList.of());
     }
 }

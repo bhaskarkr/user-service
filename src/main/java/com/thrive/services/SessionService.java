@@ -1,8 +1,8 @@
 package com.thrive.services;
 
 import com.thrive.model.request.LoginRequest;
-import com.thrive.model.response.LoginResponse;
+import com.thrive.model.response.LoginSuccessResponse;
 
 public interface SessionService {
-    LoginResponse login(LoginRequest loginRequest) throws Exception;
+    LoginSuccessResponse login(LoginRequest loginRequest) throws Exception;
 }

@@ -10,3 +10,17 @@ CREATE TABLE users (
                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                        CONSTRAINT PK_Base PRIMARY KEY (id)
 );
+
+CREATE TABLE stocks (
+                        id varchar(255) NOT NULL,
+                        name varchar(255),
+                        available_unit int NOT NULL,
+                        current_price int NOT NULL,
+                        day_low int NOT NULL,
+                        day_high int NOT NULL,
+                        prev_price int NOT NULL,
+                        active bit(1),
+                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        CONSTRAINT PK_Base PRIMARY KEY (id)
+);

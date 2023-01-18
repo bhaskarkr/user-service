@@ -21,7 +21,6 @@ public interface UserUtils {
                 .id(storedUser.getId())
                 .name(storedUser.getFullName())
                 .email(storedUser.getEmail())
-                .password(null)
                 .createdAt(storedUser.getCreatedAt())
                 .updatedAt(storedUser.getUpdatedAt())
                 .build();
