@@ -1,6 +1,7 @@
 package com.thrive.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.thrive.model.dto.Stock;
 import com.thrive.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,6 @@ import java.util.List;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginSuccessResponse {
-    private List<String> stocks;
+    private List<Stock> stocks;
     private User user;
 }
