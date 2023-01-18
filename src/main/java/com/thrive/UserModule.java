@@ -9,7 +9,9 @@ import com.thrive.db.UsersDB;
 import com.thrive.db.impl.UsersDBImpl;
 import com.thrive.model.config.CacheConfig;
 import com.thrive.model.dao.StoredUser;
+import com.thrive.services.SessionService;
 import com.thrive.services.UserService;
+import com.thrive.services.impl.SessionServiceImpl;
 import com.thrive.services.impl.UserServiceImpl;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.dao.RelationalDao;
@@ -29,6 +31,7 @@ public class UserModule extends AbstractModule {
         bind(UserService.class).to(UserServiceImpl.class);
         bind(UsersDB.class).to(UsersDBImpl.class);
         bind(UserCache.class).to(UserCacheImpl.class);
+        bind(SessionService.class).to(SessionServiceImpl.class);
     }
 
     @Provides

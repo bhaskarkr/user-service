@@ -21,10 +21,11 @@ public class UserResource {
     }
 
     @GET
-    @Path("/{userId}")
-    public User getUser(@PathParam("userId") String id,
+    @Path("/{email}/{password}")
+    public User getUser(@PathParam("email") String email,
+                        @PathParam("password") String password,
                         @QueryParam("allowInactive") @DefaultValue("false") boolean allowInactive) throws Exception{
-        return userService.getUser(id, allowInactive);
+        return userService.getUser(email, password, allowInactive);
     }
 
     @POST

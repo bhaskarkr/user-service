@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String userId, boolean allowInactive) throws Exception {
-        Optional<User> optionalUser = userCache.get(userId);
+    public User getUser(String email, String password, boolean allowInactive) throws Exception {
+        Optional<User> optionalUser = userCache.get(email);
         if(optionalUser.isPresent()) {
             log.info("Fetched from Cache");
             return optionalUser.get();
         }
-        Optional<StoredUser> optionalBase = usersDB.get(userId, allowInactive);
+        Optional<StoredUser> optionalBase = usersDB.get(email, password, allowInactive);
         if(!optionalBase.isPresent()) {
             throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
         }

@@ -25,17 +25,17 @@ public class StoredUser {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "fullname")
+    private String fullName;
 
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "ssn", unique = true)
-    private String ssn;
+    @Column(name = "email", unique = true)
+    private String email;
 
-    @Column(name = "phone_number", unique = true)
-    private String phoneNumber;
+    @Column(name = "password", unique = true)
+    private String password;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp

@@ -20,17 +20,18 @@ public class UsersDBImpl implements UsersDB {
     }
 
     @Override
-    public Optional<StoredUser> get(String userId, boolean allowInactive) throws Exception {
+    public Optional<StoredUser> get(String email, String password, boolean allowInactive) throws Exception {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(StoredUser.class);
-        detachedCriteria.add(Restrictions.eq("id", userId));
+        detachedCriteria.add(Restrictions.eq("email", email));
+        detachedCriteria.add(Restrictions.eq("password", password));
         if(!allowInactive){
             detachedCriteria.add(Restrictions.eq("active", true));
         }
-        return storedUserRelationalDao.select(userId, detachedCriteria, 0, 1).stream().findFirst();
+        return storedUserRelationalDao.select(email, detachedCriteria, 0, 1).stream().findFirst();
     }
 
     @Override
     public Optional<StoredUser> save(StoredUser storedBase) throws Exception {
-        return storedUserRelationalDao.save(storedBase.getId(), storedBase);
+        return storedUserRelationalDao.save(storedBase.getEmail(), storedBase);
     }
 }

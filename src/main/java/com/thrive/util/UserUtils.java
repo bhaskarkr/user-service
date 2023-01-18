@@ -8,20 +8,20 @@ import io.appform.dropwizard.discovery.bundle.id.IdGenerator;
 public interface UserUtils {
     static StoredUser toDao(UserCreateRequest request) {
         return StoredUser.builder()
-                .id(IdGenerator.generate("B").getId())
+                .id(IdGenerator.generate("U").getId())
                 .active(true)
-                .name(request.getName())
-                .phoneNumber(request.getPhoneNumber())
-                .ssn(request.getSsn())
+                .fullName(request.getFullName())
+                .password(request.getPassword())
+                .email(request.getEmail())
                 .build();
     }
 
     static User toDto(StoredUser storedUser) {
         return User.builder()
                 .id(storedUser.getId())
-                .name(storedUser.getName())
-                .usn(storedUser.getSsn())
-                .phoneNumber(storedUser.getPhoneNumber())
+                .name(storedUser.getFullName())
+                .email(storedUser.getEmail())
+                .password(null)
                 .createdAt(storedUser.getCreatedAt())
                 .updatedAt(storedUser.getUpdatedAt())
                 .build();
