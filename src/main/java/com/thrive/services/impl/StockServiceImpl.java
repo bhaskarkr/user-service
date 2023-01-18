@@ -47,6 +47,6 @@ public class StockServiceImpl implements StockService {
         existingStock.get().setDayHigh(Math.max(existingStock.get().getCurrentPrice(), existingStock.get().getDayHigh()));
         existingStock.get().setDayLow(Math.min(existingStock.get().getCurrentPrice(), existingStock.get().getDayLow()));
 
-        Optional<StoredStock> optionalStoredStock = stockDB.save(existingStock.get());
+        stockDB.save(existingStock.get());
     }
 }
