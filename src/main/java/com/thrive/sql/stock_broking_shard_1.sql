@@ -23,3 +23,14 @@ CREATE TABLE stocks (
                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                        CONSTRAINT PK_Base PRIMARY KEY (id)
 );
+
+CREATE TABLE wallet (
+                        id varchar(255) NOT NULL,
+                        account_number varchar(255) NOT NULL,
+                        user_id varchar(255) NOT NULL,
+                        amount int NOT NULL,
+                        active bit(1),
+                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        CONSTRAINT PK_Base PRIMARY KEY (id)
+);
