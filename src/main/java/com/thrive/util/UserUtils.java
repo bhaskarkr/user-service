@@ -10,6 +10,7 @@ public interface UserUtils {
         return StoredUser.builder()
                 .id(IdGenerator.generate("U").getId())
                 .active(true)
+                .type(request.getType())
                 .fullName(request.getFullName())
                 .password(request.getPassword())
                 .email(request.getEmail())
@@ -21,6 +22,7 @@ public interface UserUtils {
                 .id(storedUser.getId())
                 .name(storedUser.getFullName())
                 .email(storedUser.getEmail())
+                .type(storedUser.getType())
                 .createdAt(storedUser.getCreatedAt())
                 .updatedAt(storedUser.getUpdatedAt())
                 .build();

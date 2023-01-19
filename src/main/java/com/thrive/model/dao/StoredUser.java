@@ -1,6 +1,7 @@
 package com.thrive.model.dao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.thrive.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,9 @@ public class StoredUser {
 
     @Column(name = "active")
     private boolean active;
+
+    @Column(name = "type")
+    private UserType type;
 
     @Column(name = "email", unique = true)
     private String email;

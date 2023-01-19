@@ -1,5 +1,6 @@
 package com.thrive.model.request;
 
+import com.thrive.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,9 @@ public class UserCreateRequest {
     private String fullName;
     @NotNull
     private String email;
+
+    @NotNull
+    private UserType type;
 
     @NotNull
     private String password;

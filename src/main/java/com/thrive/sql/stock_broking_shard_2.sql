@@ -3,7 +3,8 @@ use stock_broking_shard_2;
 CREATE TABLE users (
                        id varchar(255) NOT NULL,
                        fullname varchar(255),
-                       email varchar(255),
+                       type varchar(255) NOT NULL,
+                       email varchar(255) NOT NULL,
                        active bit(1),
                        password varchar(255),
                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
