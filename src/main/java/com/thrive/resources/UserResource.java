@@ -2,6 +2,7 @@ package com.thrive.resources;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.thrive.model.UserType;
 import com.thrive.model.dto.User;
 import com.thrive.model.request.UserCreateRequest;
 import com.thrive.services.UserService;
@@ -30,7 +31,15 @@ public class UserResource {
 
     @POST
     @Path("/")
-    public User postBase(UserCreateRequest request) throws Exception{
+    public User createExternalUser(UserCreateRequest request) throws Exception{
+        request.setType(UserType.EXTERNAL_USER);
+        return userService.createUser(request);
+    }
+
+    @POST
+    @Path("/admin")
+    public User createAdminUser(UserCreateRequest request) throws Exception{
+        request.setType(UserType.ADMIN);
         return userService.createUser(request);
     }
 }
