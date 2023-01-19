@@ -3,6 +3,7 @@ package com.thrive;
 import com.google.inject.Stage;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dao.StoredUser;
+import com.thrive.model.dao.StoredWallet;
 import com.thrive.resources.UserResource;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.config.ShardedHibernateFactory;
@@ -28,7 +29,10 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 
     @Override
     public void initialize(final Bootstrap<UserServiceConfiguration> bootstrap) {
-        this.dbShardingBundle = new DBShardingBundle<UserServiceConfiguration>(StoredUser.class, StoredStock.class) {
+        this.dbShardingBundle = new DBShardingBundle<UserServiceConfiguration>(
+                StoredUser.class,
+                StoredStock.class,
+                StoredWallet.class) {
             @Override
             protected ShardedHibernateFactory getConfig(UserServiceConfiguration userServiceConfiguration) {
                 return userServiceConfiguration.getShards();

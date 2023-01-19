@@ -7,11 +7,14 @@ import com.thrive.client.cache.user.Impl.UserCacheImpl;
 import com.thrive.client.cache.user.UserCache;
 import com.thrive.db.StockDB;
 import com.thrive.db.UsersDB;
+import com.thrive.db.WalletDB;
 import com.thrive.db.impl.StockDBImpl;
 import com.thrive.db.impl.UsersDBImpl;
+import com.thrive.db.impl.WalletDBImpl;
 import com.thrive.model.config.CacheConfig;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dao.StoredUser;
+import com.thrive.model.dao.StoredWallet;
 import com.thrive.services.SessionService;
 import com.thrive.services.StockService;
 import com.thrive.services.UserService;
@@ -39,6 +42,7 @@ public class UserModule extends AbstractModule {
         bind(SessionService.class).to(SessionServiceImpl.class);
         bind(StockService.class).to(StockServiceImpl.class);
         bind(StockDB.class).to(StockDBImpl.class);
+        bind(WalletDB.class).to(WalletDBImpl.class);
     }
 
     @Provides
@@ -51,6 +55,12 @@ public class UserModule extends AbstractModule {
     @Singleton
     public RelationalDao<StoredStock> stockRelationalDao() {
         return dbShardingBundle.createRelatedObjectDao(StoredStock.class);
+    }
+
+    @Provides
+    @Singleton
+    public RelationalDao<StoredWallet> walletRelationalDao() {
+        return dbShardingBundle.createRelatedObjectDao(StoredWallet.class);
     }
 
     @Provides
