@@ -19,7 +19,7 @@ public class UserCreateRequest {
     @NotNull
     private String email;
 
-    @NotNull
+
     private UserType type;
 
     @NotNull
