@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name = "user_stock_mapping", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"id"})
 })
-public class StoredUserStockmapping {
+public class StoredUserStockMapping {
 
     @Id
     @Column(name = "id")
