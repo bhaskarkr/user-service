@@ -18,9 +18,11 @@ import com.thrive.model.dao.StoredWallet;
 import com.thrive.services.SessionService;
 import com.thrive.services.StockService;
 import com.thrive.services.UserService;
+import com.thrive.services.WalletService;
 import com.thrive.services.impl.SessionServiceImpl;
 import com.thrive.services.impl.StockServiceImpl;
 import com.thrive.services.impl.UserServiceImpl;
+import com.thrive.services.impl.WalletServiceImpl;
 import io.appform.dropwizard.sharding.DBShardingBundle;
 import io.appform.dropwizard.sharding.dao.RelationalDao;
 import org.redisson.config.Config;
@@ -43,6 +45,7 @@ public class UserModule extends AbstractModule {
         bind(StockService.class).to(StockServiceImpl.class);
         bind(StockDB.class).to(StockDBImpl.class);
         bind(WalletDB.class).to(WalletDBImpl.class);
+        bind(WalletService.class).to(WalletServiceImpl.class);
     }
 
     @Provides

@@ -8,6 +8,11 @@ public enum ErrorCode {
     USER_NOT_SAVED,
     USER_ALREADY_EXIST,
 
+    // Wallet Related Error
+    WALLET_NOT_FOUND,
+    WALLET_ALREADY_EXIST,
+    WALLET_NOT_SAVED,
+
 
     // Stock related error
      STOCK_NOT_SAVED,

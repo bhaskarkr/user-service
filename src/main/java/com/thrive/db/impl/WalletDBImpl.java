@@ -32,7 +32,7 @@ public class WalletDBImpl implements WalletDB {
     }
 
     @Override
-    public Optional<StoredWallet> save(StoredWallet storedWallet, StoredUser storedUser) throws Exception {
-        return storedWalletRelationalDao.save(storedUser.getEmail(), storedWallet);
+    public Optional<StoredWallet> save(StoredWallet storedWallet) throws Exception {
+        return storedWalletRelationalDao.save(storedWallet.getUser().getEmail(), storedWallet);
     }
 }

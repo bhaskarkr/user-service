@@ -28,12 +28,20 @@ public class UserServiceImpl implements UserService {
         this.userCache = userCache;
     }
 
+    public User getUserByEmail(String email, boolean allowInactive) throws Exception {
+        Optional<StoredUser> optionalStoredUser = usersDB.getUserByEmail(email, true);
+        if(!optionalStoredUser.isPresent()) {
+            throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
+        }
+        return UserUtils.toDto(optionalStoredUser.get());
+    }
+
     @Override
     public User getUser(String email, String password, boolean allowInactive) throws Exception {
-        Optional<User> optionalUser = userCache.get(email);
-        if(optionalUser.isPresent()) {
+        Optional<User> optionalStoredUser = userCache.get(email);
+        if(optionalStoredUser.isPresent()) {
             log.info("Fetched from Cache");
-            return optionalUser.get();
+            return optionalStoredUser.get();
         }
         Optional<StoredUser> optionalBase = usersDB.get(email, password, allowInactive);
         if(!optionalBase.isPresent()) {
