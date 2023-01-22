@@ -12,7 +12,7 @@ public enum ErrorCode {
     WALLET_NOT_FOUND,
     WALLET_ALREADY_EXIST,
     WALLET_NOT_SAVED,
-
+    WALLET_INSUFFICIENT_BALANCE,
 
     // Stock related error
      STOCK_NOT_SAVED,

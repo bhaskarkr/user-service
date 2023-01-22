@@ -10,6 +10,7 @@ import com.thrive.model.dao.StoredUser;
 import com.thrive.model.dao.StoredWallet;
 import com.thrive.model.dto.Wallet;
 import com.thrive.model.request.CreateUserWalletRequest;
+import com.thrive.model.request.UpdateWalletAmountRequest;
 import com.thrive.services.WalletService;
 import com.thrive.util.WalletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -57,4 +58,24 @@ public class WalletServiceImpl implements WalletService {
         }
         return WalletUtils.dto(savedStoredWallet.get());
     }
+
+    @Override
+    public Wallet updateWalletAmount(UpdateWalletAmountRequest request) throws Exception {
+        Optional<StoredUser> optionalStoredUser = usersDB.getUserByEmail(request.getEmail(), true);
+        if(optionalStoredUser.isEmpty()) {
+            throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "user doesn't exist");
+        }
+        Optional<StoredWallet> optionalStoredWallet = walletDB.get(optionalStoredUser.get(), true);
+        if(optionalStoredWallet.isEmpty()) {
+            throw new UserException(ErrorCode.WALLET_NOT_FOUND, "wallet not found for user");
+        }
+        Integer newAmount = optionalStoredWallet.get().getAmount() + request.getAmount();
+        if(newAmount < 0) {
+            throw new UserException(ErrorCode.WALLET_INSUFFICIENT_BALANCE, "wallet balance is not sufficient");
+        }
+        optionalStoredWallet.get().setAmount(newAmount);
+        Optional<StoredWallet> savedStoredWallet = walletDB.save(optionalStoredWallet.get());
+        return WalletUtils.dto(savedStoredWallet.get());
+    }
+
 }

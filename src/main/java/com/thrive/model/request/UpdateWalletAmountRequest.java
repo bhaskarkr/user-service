@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DepositCashRequest {
+public class UpdateWalletAmountRequest {
     @NotNull
     private String email;
     @NotNull
