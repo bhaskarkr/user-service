@@ -3,6 +3,7 @@ package com.thrive.resources;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.thrive.model.dto.Stock;
+import com.thrive.model.dto.User;
 import com.thrive.model.dto.UserStockMapping;
 import com.thrive.model.request.CreateStockRequest;
 import com.thrive.model.request.UpdateStockPriceRequest;
@@ -30,6 +31,12 @@ public class StockResource {
     @Path("/all")
     public List<Stock> getAllStocks() {
         return stockService.getAllStocks();
+    }
+
+    @GET
+    @Path("/{email}")
+    public List<UserStockMapping> getUser(@PathParam("email") String email) throws Exception{
+        return userStockMappingService.getUserStockMapping(email);
     }
 
     @POST
