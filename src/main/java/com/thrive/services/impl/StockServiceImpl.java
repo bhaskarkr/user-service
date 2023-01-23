@@ -1,20 +1,25 @@
 package com.thrive.services.impl;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.thrive.core.ErrorCode;
 import com.thrive.core.UserException;
 import com.thrive.db.StockDB;
+import com.thrive.db.TransactionDB;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dto.Stock;
 import com.thrive.model.request.CreateStockRequest;
 import com.thrive.model.request.UpdateStockPriceRequest;
 import com.thrive.services.StockService;
 import com.thrive.util.StockUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Singleton
+@Slf4j
 public class StockServiceImpl implements StockService {
     private final StockDB stockDB;
 
