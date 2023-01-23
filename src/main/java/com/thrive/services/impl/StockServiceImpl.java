@@ -29,6 +29,15 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public Stock getStock(String stockId) throws Exception {
+        Optional<StoredStock> optionalStoredStock = stockDB.getStock(stockId);
+        if(!optionalStoredStock.isPresent()){
+            throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock doesn't exist");
+        };
+        return StockUtils.toDto(optionalStoredStock.get());
+    }
+
+    @Override
     public Stock create(CreateStockRequest createStockRequest) throws Exception {
         Optional<StoredStock> optionalStoredStock = stockDB.save(StockUtils.toDao(createStockRequest));
         if(!optionalStoredStock.isPresent()){

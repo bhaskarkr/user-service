@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface StockService {
     List<Stock> getAllStocks();
+    Stock getStock(String stockId) throws Exception;
     Stock create(CreateStockRequest createStockRequest) throws Exception;
     void updatePrice(UpdateStockPriceRequest updateStockPrice) throws Exception;
 }
