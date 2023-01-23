@@ -82,7 +82,6 @@ public class WalletServiceImpl implements WalletService {
         }
         optionalStoredWallet.get().setAmount(newAmount);
         Optional<StoredWallet> savedStoredWallet = walletDB.save(optionalStoredWallet.get());
-        if(request.getAmount() < 0)
         transactionDB.save(UserUtils.toDto(optionalStoredUser.get()),
                 TransactionUtils.dao(Transaction.builder()
                                 .amount(request.getAmount() < 0 ? request.getAmount() * -1 : request.getAmount())
