@@ -99,6 +99,7 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         optionalStoredUserStockMapping.get().setTotalAmount(newTotalAmount);
         Optional<StoredUserStockMapping> updatedStoredUserStockMapping = userStockMappingDB.save(optionalStoredUserStockMapping.get());
         optionalStoredStock.get().setAvailableUnit(optionalStoredStock.get().getAvailableUnit() - request.getUnit());
+        optionalStoredUserStockMapping.get().setStock(optionalStoredStock.get());
         stockDB.save(optionalStoredStock.get());
         return UserStockMappingUtils.dto(updatedStoredUserStockMapping.get());
     }
@@ -131,7 +132,7 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
 
         optionalStoredStock.get().setAvailableUnit(optionalStoredStock.get().getAvailableUnit() + request.getUnit());
         stockDB.save(optionalStoredStock.get());
-
+        optionalStoredUserStockMapping.get().setStock(optionalStoredStock.get());
         Optional<StoredUserStockMapping> updatedStoredUserStockMapping = userStockMappingDB.save(optionalStoredUserStockMapping.get());
         return UserStockMappingUtils.dto(updatedStoredUserStockMapping.get());
     }
