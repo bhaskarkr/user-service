@@ -11,6 +11,7 @@ import com.thrive.model.request.UserStockMappingRequest;
 import com.thrive.services.StockService;
 import com.thrive.services.UserStockMappingService;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -35,7 +36,7 @@ public class StockResource {
 
     @GET
     @Path("/{email}")
-    public List<UserStockMapping> getUser(@PathParam("email") String email) throws Exception{
+    public List<UserStockMapping> getUser(@NotNull @PathParam("email") String email) throws Exception{
         return userStockMappingService.getUserStockMapping(email);
     }
 
