@@ -32,6 +32,7 @@ public class StoredUser {
     @Column(name = "active")
     private boolean active;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "type")
     private UserType type;
 
