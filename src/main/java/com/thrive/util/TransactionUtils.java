@@ -19,7 +19,7 @@ public interface TransactionUtils {
 
     }
 
-    static StoredTransaction dto(Transaction transaction) {
+    static StoredTransaction dao(Transaction transaction) {
         return StoredTransaction.builder()
                 .id(IdGenerator.generate("T").getId())
                 .amount(transaction.getAmount())

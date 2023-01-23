@@ -5,20 +5,22 @@ import com.google.inject.Singleton;
 import com.thrive.core.ErrorCode;
 import com.thrive.core.UserException;
 import com.thrive.db.StockDB;
+import com.thrive.db.TransactionDB;
 import com.thrive.db.UserStockMappingDB;
 import com.thrive.db.UsersDB;
+import com.thrive.model.TransactionType;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dao.StoredUser;
 import com.thrive.model.dao.StoredUserStockMapping;
-import com.thrive.model.dto.Stock;
-import com.thrive.model.dto.User;
+import com.thrive.model.dto.Transaction;
 import com.thrive.model.dto.UserStockMapping;
-import com.thrive.model.dto.Wallet;
 import com.thrive.model.request.UpdateWalletAmountRequest;
 import com.thrive.model.request.UserStockMappingRequest;
 import com.thrive.services.UserStockMappingService;
 import com.thrive.services.WalletService;
+import com.thrive.util.TransactionUtils;
 import com.thrive.util.UserStockMappingUtils;
+import com.thrive.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -33,16 +35,18 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
     private final StockDB stockDB;
     private final WalletService walletService;
     private final UserStockMappingDB userStockMappingDB;
+    private final TransactionDB transactionDB;
 
     @Inject
     public UserStockMappingServiceImpl(UsersDB usersDB,
                                        StockDB stockDB,
                                        WalletService walletService,
-                                       UserStockMappingDB userStockMappingDB) {
+                                       UserStockMappingDB userStockMappingDB, TransactionDB transactionDB) {
         this.usersDB = usersDB;
         this.stockDB = stockDB;
         this.walletService = walletService;
         this.userStockMappingDB = userStockMappingDB;
+        this.transactionDB = transactionDB;
     }
 
     @Override
@@ -101,6 +105,14 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         optionalStoredStock.get().setAvailableUnit(optionalStoredStock.get().getAvailableUnit() - request.getUnit());
         optionalStoredUserStockMapping.get().setStock(optionalStoredStock.get());
         stockDB.save(optionalStoredStock.get());
+        transactionDB.save(UserUtils.toDto(optionalStoredUser.get()),
+                        TransactionUtils.dao(Transaction.builder()
+                                .amount(newAllotmentCost)
+                                .userId(optionalStoredUser.get().getId())
+                                .type(TransactionType.BUY)
+                                .unit(request.getUnit())
+                                .stockId(request.getStockId())
+                        .build()));
         return UserStockMappingUtils.dto(updatedStoredUserStockMapping.get());
     }
 
@@ -134,6 +146,14 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         stockDB.save(optionalStoredStock.get());
         optionalStoredUserStockMapping.get().setStock(optionalStoredStock.get());
         Optional<StoredUserStockMapping> updatedStoredUserStockMapping = userStockMappingDB.save(optionalStoredUserStockMapping.get());
+        transactionDB.save(UserUtils.toDto(optionalStoredUser.get()),
+                TransactionUtils.dao(Transaction.builder()
+                        .amount(sellingAllotmentCost)
+                        .userId(optionalStoredUser.get().getId())
+                        .type(TransactionType.SELL)
+                        .unit(request.getUnit())
+                        .stockId(request.getStockId())
+                        .build()));
         return UserStockMappingUtils.dto(updatedStoredUserStockMapping.get());
     }
 }

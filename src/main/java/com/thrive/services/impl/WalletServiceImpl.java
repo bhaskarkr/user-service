@@ -4,14 +4,19 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.thrive.core.ErrorCode;
 import com.thrive.core.UserException;
+import com.thrive.db.TransactionDB;
 import com.thrive.db.UsersDB;
 import com.thrive.db.WalletDB;
+import com.thrive.model.TransactionType;
 import com.thrive.model.dao.StoredUser;
 import com.thrive.model.dao.StoredWallet;
+import com.thrive.model.dto.Transaction;
 import com.thrive.model.dto.Wallet;
 import com.thrive.model.request.CreateUserWalletRequest;
 import com.thrive.model.request.UpdateWalletAmountRequest;
 import com.thrive.services.WalletService;
+import com.thrive.util.TransactionUtils;
+import com.thrive.util.UserUtils;
 import com.thrive.util.WalletUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +27,13 @@ import java.util.Optional;
 public class WalletServiceImpl implements WalletService {
     private final WalletDB walletDB;
     private final UsersDB usersDB;
+    private final TransactionDB transactionDB;
 
     @Inject
-    public WalletServiceImpl(WalletDB walletDB, UsersDB usersDB) {
+    public WalletServiceImpl(WalletDB walletDB, UsersDB usersDB, TransactionDB transactionDB) {
         this.walletDB = walletDB;
         this.usersDB = usersDB;
+        this.transactionDB = transactionDB;
     }
 
     @Override
@@ -75,6 +82,13 @@ public class WalletServiceImpl implements WalletService {
         }
         optionalStoredWallet.get().setAmount(newAmount);
         Optional<StoredWallet> savedStoredWallet = walletDB.save(optionalStoredWallet.get());
+        if(request.getAmount() < 0)
+        transactionDB.save(UserUtils.toDto(optionalStoredUser.get()),
+                TransactionUtils.dao(Transaction.builder()
+                                .amount(request.getAmount() < 0 ? request.getAmount() * -1 : request.getAmount())
+                                .userId(optionalStoredUser.get().getId())
+                                .type(request.getAmount() < 0 ? TransactionType.WITHDRAW : TransactionType.DEPOSIT)
+                                .build()));
         return WalletUtils.dto(savedStoredWallet.get());
     }
 

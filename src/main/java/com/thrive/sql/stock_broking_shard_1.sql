@@ -63,13 +63,13 @@ CREATE TABLE user_stock_mapping (
 );
 
 CREATE TABLE transactions (
-                                    id varchar(255) NOT NULL,
-                                    user_id varchar(255) NOT NULL,
-                                    type varchar(255) NOT NULL,
-                                    stock_id varchar(255) NOT NULL,
-                                    amount int NOT NULL,
-                                    unit int NOT NULL,
-                                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                    CONSTRAINT PK_mapping PRIMARY KEY (id)
+                              id varchar(255) NOT NULL,
+                              user_id varchar(255) NOT NULL,
+                              type varchar(255) NOT NULL,
+                              stock_id varchar(255),
+                              amount int NOT NULL,
+                              unit int,
+                              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                              CONSTRAINT PK_mapping PRIMARY KEY (id)
 );
