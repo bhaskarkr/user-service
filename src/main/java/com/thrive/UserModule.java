@@ -5,19 +5,10 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.thrive.client.cache.user.Impl.UserCacheImpl;
 import com.thrive.client.cache.user.UserCache;
-import com.thrive.db.StockDB;
-import com.thrive.db.UserStockMappingDB;
-import com.thrive.db.UsersDB;
-import com.thrive.db.WalletDB;
-import com.thrive.db.impl.StockDBImpl;
-import com.thrive.db.impl.UserStockMappingDBImpl;
-import com.thrive.db.impl.UsersDBImpl;
-import com.thrive.db.impl.WalletDBImpl;
+import com.thrive.db.*;
+import com.thrive.db.impl.*;
 import com.thrive.model.config.CacheConfig;
-import com.thrive.model.dao.StoredStock;
-import com.thrive.model.dao.StoredUser;
-import com.thrive.model.dao.StoredUserStockMapping;
-import com.thrive.model.dao.StoredWallet;
+import com.thrive.model.dao.*;
 import com.thrive.services.*;
 import com.thrive.services.impl.*;
 import io.appform.dropwizard.sharding.DBShardingBundle;
@@ -45,6 +36,8 @@ public class UserModule extends AbstractModule {
         bind(WalletService.class).to(WalletServiceImpl.class);
         bind(UserStockMappingDB.class).to(UserStockMappingDBImpl.class);
         bind(UserStockMappingService.class).to(UserStockMappingServiceImpl.class);
+        bind(TransactionDB.class).to(TransactionDBimpl.class);
+        bind(TransactionService.class).to(TransactionServiceImpl.class);
     }
 
     @Provides
@@ -57,6 +50,12 @@ public class UserModule extends AbstractModule {
     @Singleton
     public RelationalDao<StoredStock> stockRelationalDao() {
         return dbShardingBundle.createRelatedObjectDao(StoredStock.class);
+    }
+
+    @Provides
+    @Singleton
+    public RelationalDao<StoredTransaction> transactionRelationalDao() {
+        return dbShardingBundle.createRelatedObjectDao(StoredTransaction.class);
     }
 
     @Provides
