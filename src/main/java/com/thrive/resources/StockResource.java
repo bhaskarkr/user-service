@@ -52,13 +52,13 @@ public class StockResource {
         stockService.updatePrice(updateStockPriceRequest);
     }
 
-    @PATCH
+    @POST
     @Path("/buy")
     public UserStockMapping buyStock(UserStockMappingRequest request) throws Exception{
         return userStockMappingService.buyStockUserStockMapping(request);
     }
 
-    @PATCH
+    @POST
     @Path("/sell")
     public UserStockMapping sellStock(UserStockMappingRequest request) throws Exception{
         return userStockMappingService.sellStockUserStockMapping(request);
