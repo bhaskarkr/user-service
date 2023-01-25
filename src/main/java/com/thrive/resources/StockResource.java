@@ -46,7 +46,7 @@ public class StockResource {
         return stockService.create(request);
     }
 
-    @PATCH
+    @PUT
     @Path("/")
     public void updateStockPrice(UpdateStockPriceRequest updateStockPriceRequest) throws Exception{
         stockService.updatePrice(updateStockPriceRequest);

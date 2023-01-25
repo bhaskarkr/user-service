@@ -18,5 +18,10 @@ public enum ErrorCode {
     // Stock related error
      STOCK_NOT_SAVED,
     STOCK_DOES_NOT_EXIST,
-    NOT_ENOUGH_STOCK_AVAILABLE;
+    NOT_ENOUGH_STOCK_AVAILABLE,
+
+    // Timing related error
+    MARKET_TIMING_NOT_CREATED,
+    BUY_AND_SELL_NOT_ALLOWED_OUTSIDE_MARKET_TIMING
+    ;
 }

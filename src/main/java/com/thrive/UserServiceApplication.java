@@ -36,7 +36,8 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
                 StoredStock.class,
                 StoredWallet.class,
                 StoredUserStockMapping.class,
-                StoredTransaction.class) {
+                StoredTransaction.class,
+                StoredStockMarketTiming.class) {
             @Override
             protected ShardedHibernateFactory getConfig(UserServiceConfiguration userServiceConfiguration) {
                 return userServiceConfiguration.getShards();

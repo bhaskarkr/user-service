@@ -33,7 +33,7 @@ public class WalletResource {
         return walletService.createWallet(request);
     }
 
-    @PATCH
+    @PUT
     @Path("/amount")
     public Wallet depositCashToWallet(UpdateWalletAmountRequest request) throws Exception{
         return walletService.updateWalletAmount(request);

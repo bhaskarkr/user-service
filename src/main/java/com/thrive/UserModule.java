@@ -38,6 +38,8 @@ public class UserModule extends AbstractModule {
         bind(UserStockMappingService.class).to(UserStockMappingServiceImpl.class);
         bind(TransactionDB.class).to(TransactionDBimpl.class);
         bind(TransactionService.class).to(TransactionServiceImpl.class);
+        bind(StockMarketTimingDB.class).to(StockMarketTimingDBImpl.class);
+        bind(StockMarketTimingService.class).to(StockMarketTimingServiceImpl.class);
     }
 
     @Provides
@@ -50,6 +52,12 @@ public class UserModule extends AbstractModule {
     @Singleton
     public RelationalDao<StoredStock> stockRelationalDao() {
         return dbShardingBundle.createRelatedObjectDao(StoredStock.class);
+    }
+
+    @Provides
+    @Singleton
+    public RelationalDao<StoredStockMarketTiming> StoreMarketTimingRelationalDao() {
+        return dbShardingBundle.createRelatedObjectDao(StoredStockMarketTiming.class);
     }
 
     @Provides
