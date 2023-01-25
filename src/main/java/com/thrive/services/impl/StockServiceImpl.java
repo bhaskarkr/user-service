@@ -5,12 +5,14 @@ import com.google.inject.Singleton;
 import com.thrive.core.ErrorCode;
 import com.thrive.core.UserException;
 import com.thrive.db.StockDB;
-import com.thrive.db.TransactionDB;
+import com.thrive.model.UserType;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dto.Stock;
+import com.thrive.model.dto.User;
 import com.thrive.model.request.CreateStockRequest;
 import com.thrive.model.request.UpdateStockPriceRequest;
 import com.thrive.services.StockService;
+import com.thrive.services.UserService;
 import com.thrive.util.StockUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +24,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StockServiceImpl implements StockService {
     private final StockDB stockDB;
+    private final UserService userService;
 
     @Inject
-    public StockServiceImpl(StockDB stockDB) {
+    public StockServiceImpl(StockDB stockDB, UserService userService) {
         this.stockDB = stockDB;
+        this.userService = userService;
     }
 
     @Override
@@ -44,6 +48,9 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Stock create(CreateStockRequest createStockRequest) throws Exception {
+        User user = userService.getUserByEmail(createStockRequest.getEmail(), true);
+        if(!UserType.ADMIN.equals(user.getType()))
+            throw new UserException(ErrorCode.ONLY_ADMIN_CAN_UPDATE_PRICE, "Only Admin are allowed");
         Optional<StoredStock> optionalStoredStock = stockDB.save(StockUtils.toDao(createStockRequest));
         if(!optionalStoredStock.isPresent()){
             throw new UserException(ErrorCode.STOCK_NOT_SAVED, "Stock not saved");
@@ -53,6 +60,9 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void updatePrice(UpdateStockPriceRequest updateStockPrice) throws Exception {
+        User user = userService.getUserByEmail(updateStockPrice.getEmail(), true);
+        if(!UserType.ADMIN.equals(user.getType()))
+            throw new UserException(ErrorCode.ONLY_ADMIN_CAN_UPDATE_PRICE, "Only Admin are allowed");
         Optional<StoredStock> existingStock = stockDB.getStock(updateStockPrice.getStockId());
         if(!existingStock.isPresent()){
             throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock doesn't exist");

@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 public class CreateStockRequest {
 
     @NotNull
+    private String email;
+    @NotNull
     private String name;
     @NotNull
     private Integer units;

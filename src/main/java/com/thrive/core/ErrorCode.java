@@ -7,6 +7,7 @@ public enum ErrorCode {
     USER_ID_NOT_FOUND,
     USER_NOT_SAVED,
     USER_ALREADY_EXIST,
+    ONLY_ADMIN_CAN_UPDATE_PRICE,
 
     // Wallet Related Error
     WALLET_NOT_FOUND,

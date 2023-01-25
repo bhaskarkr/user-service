@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 public class UpdateStockPriceRequest {
 
     @NotNull
+    private String email;
+    @NotNull
     private String stockId;
     @NotNull
     private Integer price;
