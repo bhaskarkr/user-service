@@ -41,17 +41,17 @@ public class StockMarketTimingServiceImpl implements StockMarketTimingService {
 
     @Override
     public void addMarketTiming(CreateStockMarketTimingRequest request) throws Exception {
-//        User user = userService.getUserByEmail(request.getEmail(), false);
-//        if(!UserType.ADMIN.equals(user.getType())) {
-//            throw UserException.error(ErrorCode.ONLY_ADMIN_CAN_UPDATE_MARKET_TIMING, "Only Admin can add/update market timing");
-//        }
+        User user = userService.getUserByEmail(request.getEmail(), false);
+        if(!UserType.ADMIN.equals(user.getType())) {
+            throw UserException.error(ErrorCode.ONLY_ADMIN_CAN_UPDATE_MARKET_TIMING, "Only Admin can add/update market timing");
+        }
         Optional<StoredStockMarketTiming> optionalStoredStockMarketTiming = stockMarketTimingDB.getStockMarketTiming();
         if(optionalStoredStockMarketTiming.isEmpty()) {
             stockMarketTimingDB.save(StockMarketTimingUtils.dao(request));
         } else {
             optionalStoredStockMarketTiming.get().setEndTimeInMinutes(request.getEndTimeInMinutes());
             optionalStoredStockMarketTiming.get().setStartTimeInMinutes(request.getStartTimeInMinutes());
-            stockMarketTimingDB.save(StockMarketTimingUtils.dao(request));
+            stockMarketTimingDB.save(optionalStoredStockMarketTiming.get());
         }
     }
 
