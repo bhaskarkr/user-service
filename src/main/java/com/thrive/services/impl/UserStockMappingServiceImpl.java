@@ -9,6 +9,7 @@ import com.thrive.db.TransactionDB;
 import com.thrive.db.UserStockMappingDB;
 import com.thrive.db.UsersDB;
 import com.thrive.model.TransactionType;
+import com.thrive.model.UserType;
 import com.thrive.model.dao.StoredStock;
 import com.thrive.model.dao.StoredUser;
 import com.thrive.model.dao.StoredUserStockMapping;
@@ -86,7 +87,9 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         if(!optionalStoredUser.isPresent()) {
             throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
         }
-
+        if(UserType.ADMIN.equals(optionalStoredUser.get().getType())) {
+            throw new UserException(ErrorCode.ADMIN_ARE_NOT_ALLOWED_TO_BUY_OR_SELL_STOCK, "User not Found");
+        }
         Optional<StoredStock> optionalStoredStock = stockDB.getStock(request.getStockId());
         if(!optionalStoredStock.isPresent()) {
             throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock not Found");
@@ -130,7 +133,9 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         if(!optionalStoredUser.isPresent()) {
             throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
         }
-
+        if(UserType.ADMIN.equals(optionalStoredUser.get().getType())) {
+            throw new UserException(ErrorCode.ADMIN_ARE_NOT_ALLOWED_TO_BUY_OR_SELL_STOCK, "User not Found");
+        }
         Optional<StoredStock> optionalStoredStock = stockDB.getStock(request.getStockId());
         if(!optionalStoredStock.isPresent()) {
             throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock not Found");

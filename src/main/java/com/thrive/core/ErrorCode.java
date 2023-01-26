@@ -19,6 +19,7 @@ public enum ErrorCode {
      STOCK_NOT_SAVED,
     STOCK_DOES_NOT_EXIST,
     NOT_ENOUGH_STOCK_AVAILABLE,
+    ADMIN_ARE_NOT_ALLOWED_TO_BUY_OR_SELL_STOCK,
 
     // Timing related error
     MARKET_TIMING_NOT_CREATED,
