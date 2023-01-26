@@ -2,6 +2,7 @@ package com.thrive.resources;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.thrive.model.dto.StockMarketTiming;
 import com.thrive.model.request.CreateStockMarketTimingRequest;
 import com.thrive.services.StockMarketTimingService;
 
@@ -31,7 +32,7 @@ public class MarketTimingResource {
 
     @GET
     @Path("/")
-    public void getMarketTiming() throws Exception{
-        stockMarketTimingService.getStockMarketTiming();
+    public StockMarketTiming getMarketTiming() throws Exception{
+        return stockMarketTimingService.getStockMarketTiming();
     }
 }
