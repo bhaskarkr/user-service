@@ -8,16 +8,16 @@ import io.appform.dropwizard.discovery.bundle.id.IdGenerator;
 public interface StockMarketTimingUtils {
     static StockMarketTiming dto(StoredStockMarketTiming storedStockMarketTiming) {
         return StockMarketTiming.builder()
-                .endTime(storedStockMarketTiming.getEndTime())
-                .startTime(storedStockMarketTiming.getStartTime())
+                .endTimeMinutes(storedStockMarketTiming.getEndTimeInMinutes())
+                .startTimeInMinutes(storedStockMarketTiming.getStartTimeInMinutes())
                 .build();
 
     }
     static StoredStockMarketTiming dao(CreateStockMarketTimingRequest request) {
         return StoredStockMarketTiming.builder()
                 .id(IdGenerator.generate("SM").getId())
-                .endTime(request.getEndTime())
-                .startTime(request.getStartTime())
+                .endTimeInMinutes(request.getEndTimeInMinutes())
+                .startTimeInMinutes(request.getStartTimeInMinutes())
                 .build();
     }
 }

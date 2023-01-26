@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +15,7 @@ import java.sql.Time;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StockMarketTiming {
     @NotNull
-    private Time startTime;
+    private Integer startTimeInMinutes;
     @NotNull
-    private Time endTime;
+    private Integer endTimeMinutes;
 }

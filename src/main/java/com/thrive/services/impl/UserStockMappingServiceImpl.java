@@ -16,6 +16,7 @@ import com.thrive.model.dto.Transaction;
 import com.thrive.model.dto.UserStockMapping;
 import com.thrive.model.request.UpdateWalletAmountRequest;
 import com.thrive.model.request.UserStockMappingRequest;
+import com.thrive.services.StockMarketTimingService;
 import com.thrive.services.UserStockMappingService;
 import com.thrive.services.WalletService;
 import com.thrive.util.TransactionUtils;
@@ -37,16 +38,21 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
     private final UserStockMappingDB userStockMappingDB;
     private final TransactionDB transactionDB;
 
+    private final StockMarketTimingService stockMarketTimingService;
+
     @Inject
     public UserStockMappingServiceImpl(UsersDB usersDB,
                                        StockDB stockDB,
                                        WalletService walletService,
-                                       UserStockMappingDB userStockMappingDB, TransactionDB transactionDB) {
+                                       UserStockMappingDB userStockMappingDB,
+                                       TransactionDB transactionDB,
+                                       StockMarketTimingService stockMarketTimingService) {
         this.usersDB = usersDB;
         this.stockDB = stockDB;
         this.walletService = walletService;
         this.userStockMappingDB = userStockMappingDB;
         this.transactionDB = transactionDB;
+        this.stockMarketTimingService = stockMarketTimingService;
     }
 
     @Override
@@ -75,6 +81,7 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
 
     @Override
     public UserStockMapping buyStockUserStockMapping(UserStockMappingRequest request) throws Exception {
+        stockMarketTimingService.validateMarketTiming();
         Optional<StoredUser> optionalStoredUser = usersDB.getUserByEmail(request.getEmail(), true);
         if(!optionalStoredUser.isPresent()) {
             throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");
@@ -118,6 +125,7 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
 
     @Override
     public UserStockMapping sellStockUserStockMapping(UserStockMappingRequest request) throws Exception {
+        stockMarketTimingService.validateMarketTiming();
         Optional<StoredUser> optionalStoredUser = usersDB.getUserByEmail(request.getEmail(), true);
         if(!optionalStoredUser.isPresent()) {
             throw new UserException(ErrorCode.USER_ID_NOT_FOUND, "User not Found");

@@ -73,3 +73,12 @@ CREATE TABLE transactions (
                               updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                               CONSTRAINT PK_mapping PRIMARY KEY (id)
 );
+
+CREATE TABLE market_timing (
+                              id varchar(255) NOT NULL,
+                              start_time int NOT NULL,
+                              end_time int NOT NULL,
+                              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                              CONSTRAINT PK_mapping PRIMARY KEY (id)
+);

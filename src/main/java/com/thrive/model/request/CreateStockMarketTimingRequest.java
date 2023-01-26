@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 
 
 @Data
@@ -16,8 +15,10 @@ import java.sql.Time;
 public class CreateStockMarketTimingRequest {
 
     @NotNull
-    private Time startTime;
+    private String email;
     @NotNull
-    private Time endTime;
+    private Integer startTimeInMinutes;
+    @NotNull
+    private Integer endTimeInMinutes;
 
 }

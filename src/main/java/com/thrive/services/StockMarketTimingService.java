@@ -7,4 +7,6 @@ public interface StockMarketTimingService {
     StockMarketTiming getStockMarketTiming() throws Exception;
 
     void addMarketTiming(CreateStockMarketTimingRequest request)throws Exception;
+
+    void validateMarketTiming()throws Exception;
  }

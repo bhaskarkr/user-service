@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import com.thrive.db.StockMarketTimingDB;
 import com.thrive.model.dao.StoredStockMarketTiming;
 import io.appform.dropwizard.sharding.dao.RelationalDao;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.Optional;
 
@@ -20,7 +21,8 @@ public class StockMarketTimingDBImpl implements StockMarketTimingDB {
 
     @Override
     public Optional<StoredStockMarketTiming> getStockMarketTiming() throws Exception {
-        return storedStockMarketTimingRelationalDao.select(String.valueOf(1), null, 0, 1).stream().findFirst();
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(StoredStockMarketTiming.class);
+        return storedStockMarketTimingRelationalDao.select(String.valueOf(1), detachedCriteria, 0, 1).stream().findFirst();
     }
 
     @Override
