@@ -145,6 +145,9 @@ public class UserStockMappingServiceImpl implements UserStockMappingService {
         if(optionalStoredUserStockMapping.isEmpty()) {
             optionalStoredUserStockMapping = Optional.of(UserStockMappingUtils.dao(optionalStoredStock.get(), optionalStoredUser.get()));
         }
+        if(optionalStoredStock.get().getAvailableUnit() < request.getUnit()) {
+            throw new UserException(ErrorCode.CAN_T_SELL_MORE_THAN_AVAILABLE_UNIT, "Not Enough Stock to Sell");
+        }
         Integer sellingAllotmentCost = request.getUnit() * optionalStoredStock.get().getCurrentPrice();
         Integer newUnitAvailableCount = optionalStoredUserStockMapping.get().getTotalUnit() - request.getUnit();
         Integer newTotalAmount = optionalStoredUserStockMapping.get().getTotalAmount() - sellingAllotmentCost;
