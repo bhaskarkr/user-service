@@ -68,9 +68,9 @@ public class StockServiceImpl implements StockService {
             throw new UserException(ErrorCode.STOCK_DOES_NOT_EXIST, "Stock doesn't exist");
         }
         existingStock.get().setPreviousPrice(existingStock.get().getCurrentPrice());
+        existingStock.get().setCurrentPrice(updateStockPrice.getPrice());
         existingStock.get().setDayHigh(Math.max(existingStock.get().getCurrentPrice(), existingStock.get().getDayHigh()));
         existingStock.get().setDayLow(Math.min(existingStock.get().getCurrentPrice(), existingStock.get().getDayLow()));
-        existingStock.get().setCurrentPrice(updateStockPrice.getPrice());
         stockDB.save(existingStock.get());
     }
 }
